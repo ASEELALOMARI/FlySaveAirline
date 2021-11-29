@@ -50,7 +50,6 @@ INSERT INTO `flight` (`FlightNo`, `FlightType`, `From`, `To`, `DepartureTime`, `
 
 CREATE TABLE `reservation` (
   `Reservation_num` int(5) NOT NULL,
-  `TicketNo` int(4) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `NmberOfAdults` int(10) NOT NULL,
   `NumberOfChildren` int(10) NOT NULL
@@ -60,8 +59,27 @@ CREATE TABLE `reservation` (
 -- إرجاع أو استيراد بيانات الجدول `reservation`
 --
 
-INSERT INTO `reservation` (`Reservation_num`, `TicketNo`, `Username`, `NmberOfAdults`, `NumberOfChildren`) VALUES
-(4050, 2001, 'imuser', 1, 0);
+INSERT INTO `reservation` (`Reservation_num`, `Username`, `NmberOfAdults`, `NumberOfChildren`) VALUES
+(4050, 'imuser', 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `res_tic`
+--
+
+CREATE TABLE `res_tic` (
+  `Reservation_num` int(5) NOT NULL,
+  `TicketNo` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `res_tic`
+--
+
+INSERT INTO `res_tic` (`Reservation_num`, `TicketNo`) VALUES
+(4050, 2001),
+(4050, 2002);
 
 -- --------------------------------------------------------
 
@@ -81,7 +99,8 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`TicketNo`, `TravelerID`, `Flight_ID`, `Ticket_Type`) VALUES
-(2001, 11, 204, 'Economy');
+(2001, 11, 204, 'Economy'),
+(2002, 14, 204, 'Economy');
 
 -- --------------------------------------------------------
 
@@ -98,15 +117,15 @@ CREATE TABLE `traveler` (
   `DOB` date NOT NULL,
   `Email` varchar(50) NOT NULL,
   `PhoneNum` varchar(50) NOT NULL,
-  `BookedBy` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `traveler`
 --
 
-INSERT INTO `traveler` (`TravelerID`, `National_ID`, `Gender`, `FirstName`, `LastName`, `DOB`, `Email`, `PhoneNum`, `BookedBy`) VALUES
-(11, 100200300, 'male', 'Ahmed', 'omar', '1995-02-11', '', '0500300300', 'imuser');
+INSERT INTO `traveler` (`TravelerID`, `National_ID`, `Gender`, `FirstName`, `LastName`, `DOB`, `Email`, `PhoneNum`) VALUES
+(11, 100200300, 'Mr', 'Ahmed', 'omar', '1995-02-11', '', '0500300300'),
+(14, 100200301, 'Miss', 'Norah', 'Ahmed', '2010-05-01', '', '0555000050');
 
 -- --------------------------------------------------------
 
@@ -142,8 +161,15 @@ ALTER TABLE `flight`
 --
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`Reservation_num`),
-  ADD KEY `Reservation_fk0` (`TicketNo`),
   ADD KEY `Reservation_fk1` (`Username`);
+  
+  
+--
+-- Indexes for table `res_tic`
+--
+ALTER TABLE `res_tic`
+  ADD KEY `Res_Tic_fk0` (`Reservation_num`),
+  ADD KEY `Res_Tic_fk1` (`TicketNo`);
 
 --
 -- Indexes for table `ticket`
@@ -157,8 +183,7 @@ ALTER TABLE `ticket`
 -- Indexes for table `traveler`
 --
 ALTER TABLE `traveler`
-  ADD PRIMARY KEY (`TravelerID`),
-  ADD UNIQUE KEY `BookedBy` (`BookedBy`);
+  ADD PRIMARY KEY (`TravelerID`);
 
 --
 -- Indexes for table `users`
@@ -188,13 +213,13 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `TicketNo` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2002;
+  MODIFY `TicketNo` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2003;
 
 --
 -- AUTO_INCREMENT for table `traveler`
 --
 ALTER TABLE `traveler`
-  MODIFY `TravelerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `TravelerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- قيود الجداول المحفوظة
@@ -204,9 +229,15 @@ ALTER TABLE `traveler`
 -- القيود للجدول `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `Reservation_fk0` FOREIGN KEY (`TicketNo`) REFERENCES `ticket` (`TicketNo`),
   ADD CONSTRAINT `Reservation_fk1` FOREIGN KEY (`Username`) REFERENCES `users` (`Usersname`);
 
+--
+-- القيود للجدول `res_tic`
+--
+ALTER TABLE `res_tic`
+  ADD CONSTRAINT `Res_Tic_fk0` FOREIGN KEY (`Reservation_num`) REFERENCES `reservation` (`Reservation_num`),
+  ADD CONSTRAINT `Res_Tic_fk1` FOREIGN KEY (`TicketNo`) REFERENCES `ticket` (`TicketNo`);
+  
 --
 -- القيود للجدول `ticket`
 --
