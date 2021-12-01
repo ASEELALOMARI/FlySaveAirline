@@ -1,0 +1,141 @@
+body {
+    background-image: url("backgraund007.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    margin: 10;
+    padding: 0;
+    overflow: hidden;
+    background-color: #FBFBFF;
+    top: 0;
+    opacity: 0.8;
+
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    block-size: 40px 20px;
+    color: #4B4B4B;
+    text-align: center;
+    margin: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #BADDF2;
+    border-radius: 10px;
+
+}
+
+.active {
+    background-color: #4B4B4B;
+    border-radius: 10px;
+    color: white;
+    
+}
+
+.ResBox {
+    width: 700px;
+    background-color: #FBFBFF;
+    border-radius: 10px ;
+    border: 2px solid #4B4B4B;
+    padding: 50px;
+    margin: auto;
+    opacity: 0.9;
+    text-align: center;
+    color: #4b4b4b;
+    /* position:relative; */
+}
+
+h3 {
+    text-align: center;
+}
+
+.TicBox {
+    width: 600px;
+    background-color: white;
+    border: 10px #477c9b;
+    border-style: solid solid solid solid;
+    border-radius: 30px 30px 0px 0px;
+    padding: 50px;
+    margin: auto;
+    opacity: 2;
+    text-align: center;
+
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.travelerName {
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
+
+.button {
+    background-color: #4B4B4B;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 28px;
+    margin: auto;
+    cursor: pointer;
+    
+}
+
+.button:hover {
+    color: black;
+    font-weight: bold;
+    background-color: #BADDF2;
+}
+
+
+/* @media print {
+    body {
+        background-image: none;
+        background-color: white;
+    }
+
+    #noPrint {
+        visibility: hidden;
+        display: none;
+    } 
+
+}*/
+.center{
+    width: 700px;
+    align-items: center;
+    text-align: center;
+    padding: 50px;
+    margin: auto;
+}
+hr{
+    visibility: hidden;
+}
+.inputBox{
+    padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.hid{
+    visibility: hidden;
+}
