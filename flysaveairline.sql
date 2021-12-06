@@ -1,4 +1,4 @@
-
+-- لتفادي الأخطاء الرجاء إضافة الاستعلامات كلٌ على حده
 --
 -- Database: `flysaveairline`
 --
@@ -12,35 +12,29 @@
 CREATE TABLE `flight` (
   `FlightNo` int(3) NOT NULL,
   `FlightType` varchar(15) NOT NULL DEFAULT 'Boeing 777',
-  `From` varchar(15) NOT NULL,
-  `To` varchar(15) NOT NULL,
+  `FromCity` varchar(15) NOT NULL,
+  `ToCity` varchar(15) NOT NULL,
   `DepartureTime` time NOT NULL,
   `ArrivalTime` time NOT NULL,
-  `Flight_date` date DEFAULT NULL
+  `Flight_date` date DEFAULT NULL,
+  `price` double DEFAULT 5000
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `flight`
 --
 
-INSERT INTO `flight` (`FlightNo`, `FlightType`, `From`, `To`, `DepartureTime`, `ArrivalTime`, `Flight_date`) VALUES
-(201, 'Boeing 777', 'Qassim', 'Riyadh', '09:00:00', '11:00:00', '2021-12-15'),
-(202, 'Boeing 777', 'Qassim', 'jeddah', '09:00:00', '11:00:00', '2021-12-15'),
-(203, 'Boeing 777', 'Qassim', 'jeddah', '15:00:00', '17:00:00', '2021-12-15'),
-(204, 'Boeing 777', 'Qassim', 'jeddah', '15:00:00', '17:00:00', '2021-12-16'),
-(205, 'Boeing 777', 'Qassim', 'jeddah', '09:00:00', '11:00:00', '2021-12-17'),
-(206, 'Boeing 777', 'Jeddah', 'Riyadh', '09:00:00', '11:00:00', '2021-12-15'),
-(207, 'Boeing 777', 'Jeddah', 'Riyadh', '16:00:00', '18:00:00', '2021-12-15'),
-(208, 'Boeing 777', 'Jeddah', 'Riyadh', '09:00:00', '11:00:00', '2021-12-16'),
-(209, 'Boeing 777', 'Jeddah', 'Riyadh', '16:00:00', '18:00:00', '2021-12-16'),
-(210, 'Boeing 777', 'Jeddah', 'Riyadh', '09:00:00', '11:00:00', '2021-12-17'),
-(211, 'Boeing 777', 'Jeddah', 'Riyadh', '16:00:00', '18:00:00', '2021-12-17'),
-(212, 'Boeing 777', 'Riyadh', 'Dubai', '11:00:00', '14:00:00', '2021-12-15'),
-(213, 'Boeing 777', 'Riyadh', 'Dubai', '18:00:00', '22:00:00', '2021-12-15'),
-(214, 'Boeing 777', 'Riyadh', 'Dubai', '11:00:00', '14:00:00', '2021-12-16'),
-(215, 'Boeing 777', 'Riyadh', 'Dubai', '18:00:00', '22:00:00', '2021-12-16'),
-(216, 'Boeing 777', 'Riyadh', 'Dubai', '11:00:00', '14:00:00', '2021-12-17'),
-(217, 'Boeing 777', 'Riyadh', 'Dubai', '18:00:00', '22:00:00', '2021-12-17');
+INSERT INTO `flight` (`FlightNo`, `FlightType`, `FromCity`, `ToCity`, `DepartureTime`, `ArrivalTime`, `Flight_date`, `price`) VALUES
+(201, 'Boeing 777', 'Qassim', 'Riyadh', '09:00:00', '11:00:00', '2021-12-15', 2000),
+(202, 'Boeing 777', 'Qassim', 'jeddah', '09:00:00', '11:00:00', '2021-12-15', 2000),
+(204, 'Boeing 777', 'Qassim', 'jeddah', '15:00:00', '17:00:00', '2021-12-16', 3000),
+(205, 'Boeing 777', 'Qassim', 'jeddah', '09:00:00', '11:00:00', '2021-12-17', 3000),
+(207, 'Boeing 777', 'Jeddah', 'Riyadh', '16:00:00', '18:00:00', '2021-12-15', 5000),
+(208, 'Boeing 777', 'Jeddah', 'Riyadh', '09:00:00', '11:00:00', '2021-12-16', 5000),
+(211, 'Boeing 777', 'Jeddah', 'Riyadh', '16:00:00', '18:00:00', '2021-12-17', 5000),
+(212, 'Boeing 777', 'Riyadh', 'Dubai', '11:00:00', '14:00:00', '2021-12-15', 7000),
+(214, 'Boeing 777', 'Riyadh', 'Dubai', '11:00:00', '14:00:00', '2021-12-16', 7000),
+(217, 'Boeing 777', 'Riyadh', 'Dubai', '18:00:00', '22:00:00', '2021-12-17', 7000);
 
 -- --------------------------------------------------------
 
@@ -136,14 +130,14 @@ INSERT INTO `traveler` (`TravelerID`, `National_ID`, `Gender`, `FirstName`, `Las
 CREATE TABLE `users` (
   `Usersname` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL
+  `Password1` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `users`
 --
 
-INSERT INTO `users` (`Usersname`, `Email`, `Password`) VALUES
+INSERT INTO `users` (`Usersname`, `Email`, `Password1`) VALUES
 ('imuser', 'imuser@user.com', 'imuser');
 
 --
@@ -245,9 +239,4 @@ ALTER TABLE `ticket`
   ADD CONSTRAINT `Ticket_fk0` FOREIGN KEY (`TravelerID`) REFERENCES `traveler` (`TravelerID`),
   ADD CONSTRAINT `Ticket_fk1` FOREIGN KEY (`Flight_ID`) REFERENCES `flight` (`FlightNo`);
 
---
--- القيود للجدول `traveler`
---
-ALTER TABLE `traveler`
-  ADD CONSTRAINT `Traveler_fk0` FOREIGN KEY (`BookedBy`) REFERENCES `users` (`Usersname`);
 COMMIT;
